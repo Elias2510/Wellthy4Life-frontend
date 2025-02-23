@@ -1,15 +1,24 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Analysis from "./pages/Analysis"; // Importăm pagina Analysis
 
 function App() {
-  return (
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<h1 style={{ textAlign: "center", marginTop: "50px" }}>Bine ai venit la Wellthy4Life!</h1>} />
-        </Routes>
-      </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/analysis" element={<Analysis />} /> {/* Ruta pentru Analysis */}
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

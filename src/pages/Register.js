@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/Auth.css";
 
-const Login = () => {
+const Register = () => {
     const [email, setEmail] = useState("");
+    const [fullName, setFullName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -14,14 +15,10 @@ const Login = () => {
         setError("");
 
         try {
-            const response = await api.post("/auth/login", {
-                email: email.toLowerCase(),
-                password
-            });
-            localStorage.setItem("token", response.data.token);
-            navigate("/dashboard");
+            await api.post("/auth/register", { email, fullName, password });
+            navigate("/login");
         } catch (err) {
-            setError("Autentificare eșuată. Verifică datele introduse!");
+            setError("Înregistrare eșuată. Încercați din nou!");
         }
     };
 
@@ -29,8 +26,14 @@ const Login = () => {
         <div className="auth-container">
             <button className="back-button" onClick={() => navigate("/")}>← Înapoi</button>
             <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Autentificare</h2>
+                <h2>Înregistrare</h2>
                 {error && <p className="error-message">{error}</p>}
+                <input
+                    type="text"
+                    placeholder="Nume complet"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                />
                 <input
                     type="email"
                     placeholder="Email"
@@ -43,11 +46,11 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Autentificare</button>
-                <p>Utilizator nou? <span className="link" onClick={() => navigate("/register")}>Înregistrează-te</span></p>
+                <button type="submit">Înregistrează-te</button>
+                <p>Ai deja un cont? <span className="link" onClick={() => navigate("/login")}>Autentifică-te</span></p>
             </form>
         </div>
     );
 };
 
-export default Login;
+export default Register;
