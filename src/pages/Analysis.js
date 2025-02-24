@@ -1,6 +1,7 @@
+// src/pages/Analysis.js
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/analysis.css";
+import "../styles/Analysis.css";
 
 const Analysis = () => {
     const [formData, setFormData] = useState({
@@ -26,14 +27,15 @@ const Analysis = () => {
             return;
         }
         try {
-            // Înlocuiește URL-ul cu endpoint-ul real al backend-ului tău
-            const response = await axios.post("http://localhost:5000/api/analyses", {
-                test_name: formData.testName,
+            // Pentru moment, userId este fix (1). Ulterior extrage-l din autentificare.
+            const response = await axios.post("http://localhost:8080/api/analyses/add", {
+                userId: 7,
+                testName: formData.testName,
                 value: parseFloat(formData.value),
                 unit: formData.unit,
-                normal_min: formData.normalMin ? parseFloat(formData.normalMin) : null,
-                normal_max: formData.normalMax ? parseFloat(formData.normalMax) : null,
-                test_date: formData.testDate
+                normalMin: formData.normalMin ? parseFloat(formData.normalMin) : null,
+                normalMax: formData.normalMax ? parseFloat(formData.normalMax) : null,
+                testDate: formData.testDate
             });
             setMessage("Analysis added successfully!");
             setFormData({

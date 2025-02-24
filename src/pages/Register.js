@@ -1,53 +1,74 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+import axios from "axios";
 import "../styles/Auth.css";
 
 const Register = () => {
-    const [email, setEmail] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [userData, setUserData] = useState({
+        fullName: "",
+        email: "",
+        password: "",
+        birthDate: ""
+    });
+    const [message, setMessage] = useState("");
     const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData((prev) => ({ ...prev, [name]: value }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
-
+        if (!userData.fullName || !userData.email || !userData.password) {
+            setMessage("Please fill in all required fields.");
+            return;
+        }
         try {
-            await api.post("/auth/register", { email, fullName, password });
-            navigate("/login");
-        } catch (err) {
-            setError("Înregistrare eșuată. Încercați din nou!");
+            await axios.post("http://localhost:8080/api/users/register", userData);
+            setMessage("Registration successful! Redirecting to login...");
+            setTimeout(() => navigate("/login"), 2000);
+        } catch (error) {
+            setMessage("Registration failed. Please try again.");
         }
     };
 
     return (
         <div className="auth-container">
-            <button className="back-button" onClick={() => navigate("/")}>← Înapoi</button>
+            <button className="back-button" onClick={() => navigate("/")}>← Back</button>
             <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Înregistrare</h2>
-                {error && <p className="error-message">{error}</p>}
+                <h2>Register</h2>
+                {message && <p className="error-message">{message}</p>}
                 <input
                     type="text"
-                    placeholder="Nume complet"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    name="fullName"
+                    placeholder="Full Name"
+                    value={userData.fullName}
+                    onChange={handleChange}
                 />
                 <input
                     type="email"
+                    name="email"
                     placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={userData.email}
+                    onChange={handleChange}
                 />
                 <input
                     type="password"
-                    placeholder="Parolă"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    placeholder="Password"
+                    value={userData.password}
+                    onChange={handleChange}
                 />
-                <button type="submit">Înregistrează-te</button>
-                <p>Ai deja un cont? <span className="link" onClick={() => navigate("/login")}>Autentifică-te</span></p>
+                <input
+                    type="date"
+                    name="birthDate"
+                    placeholder="Birth Date"
+                    value={userData.birthDate}
+                    onChange={handleChange}
+                />
+                <button type="submit">Register</button>
+                <p>Already have an account? <span className="link" onClick={() => navigate("/login")}>Log in</span></p>
             </form>
         </div>
     );

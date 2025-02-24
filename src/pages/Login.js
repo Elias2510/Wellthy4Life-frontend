@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+import axios from "axios";
 import "../styles/Auth.css";
 
 const Login = () => {
@@ -14,22 +14,25 @@ const Login = () => {
         setError("");
 
         try {
-            const response = await api.post("/auth/login", {
-                email: email.toLowerCase(),
+            const response = await axios.post("http://localhost:8080/auth/login", {
+                email,
                 password
             });
+
             localStorage.setItem("token", response.data.token);
             navigate("/dashboard");
         } catch (err) {
-            setError("Autentificare eșuată. Verifică datele introduse!");
+            console.error("Login error:", err);
+            setError("Invalid email or password");
         }
     };
 
+
     return (
         <div className="auth-container">
-            <button className="back-button" onClick={() => navigate("/")}>← Înapoi</button>
+            <button className="back-button" onClick={() => navigate("/")}>← Back</button>
             <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Autentificare</h2>
+                <h2>Login</h2>
                 {error && <p className="error-message">{error}</p>}
                 <input
                     type="email"
@@ -39,12 +42,12 @@ const Login = () => {
                 />
                 <input
                     type="password"
-                    placeholder="Parolă"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Autentificare</button>
-                <p>Utilizator nou? <span className="link" onClick={() => navigate("/register")}>Înregistrează-te</span></p>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <span className="link" onClick={() => navigate("/register")}>Sign up now</span></p>
             </form>
         </div>
     );
