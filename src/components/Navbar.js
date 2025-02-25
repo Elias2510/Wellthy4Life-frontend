@@ -11,13 +11,13 @@ const Navbar = () => {
         <nav className="navbar">
             <h1 className="logo" onClick={() => navigate("/")}>Wellthy4Life</h1>
             <ul>
-                <li onClick={() => navigate("/")}>Home</li>
-                <li onClick={() => navigate("/about")}>About</li>
+                <li onClick={() => navigate("/")}>Acasa</li>
+                <li onClick={() => navigate("/about")}>Despre</li>
 
                 {isAuthenticated ? (
                     <>
                         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
-                        <li onClick={() => navigate("/analysis")}>Add Analysis</li>
+                        <li onClick={() => navigate("/analysis")}>Adauga Analize</li>
                         <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
                     </>
                 ) : (

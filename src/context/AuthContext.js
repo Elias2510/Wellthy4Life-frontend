@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        setIsAuthenticated(!!token); // Setează starea pe true dacă token-ul există
+        setIsAuthenticated(!!token);
     }, []);
 
     const login = (token) => {

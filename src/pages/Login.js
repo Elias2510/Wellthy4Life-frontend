@@ -17,10 +17,10 @@ const Login = () => {
         try {
             const response = await axios.post("http://localhost:8080/auth/login", { email, password });
 
-            // Setăm starea de autentificare globală
+
             login(response.data.token);
 
-            // Rămânem pe pagina curentă (Home), navbar-ul se va actualiza automat
+
         } catch (err) {
             console.error("Login error:", err);
             setError("Invalid email or password");

@@ -8,6 +8,13 @@
     text-align: center;
     color: white;
 }
+.welcome-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: white;
+}
+
 
 .home-content {
     margin-top: 100px;
