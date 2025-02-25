@@ -1,30 +1,23 @@
-.about-container {
-    background: linear-gradient(to right, #007bff, #00d4ff);
-    color: white;
-    height: 100vh;
+.page-container {
+    min-height: 100vh; /* Asigură că pagina are cel puțin înălțimea ecranului */
+    text-align: center;
+    padding-top: 80px; /* Evită suprapunerea cu navbar-ul */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
-.about-content {
-    margin-top: 100px;
-    width: 60%;
-    background: white;
-    color: black;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
 
-.about-content h2 {
-    color: #007bff;
+
+h1 {
+    font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-.about-content p {
-    font-size: 1.1rem;
+p {
+    font-size: 1.2rem;
     line-height: 1.6;
-    margin-bottom: 10px;
+    max-width: 700px;
+    margin: 0 auto;
 }

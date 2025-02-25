@@ -1,48 +1,49 @@
-<<<<<<< HEAD:src/styles/analysis.css
-/* src/pages/analysis.css */
-=======
-/* src/pages/Analysis.css */
->>>>>>> 8d43677 (add auth):src/styles/Analysis.css
-.analysis-container {
+.page-container {
+    min-height: 100vh; /* Asigură că pagina are cel puțin înălțimea ecranului */
     text-align: center;
-    padding: 20px;
-}
-
-.analysis-header {
-    background-color: #282c34;
-    min-height: 100vh;
+    padding-top: 80px; /* Evită suprapunerea cu navbar-ul */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
 }
+
 
 .analysis-form {
-    margin-bottom: 20px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    margin: 0 auto;
 }
 
-.analysis-input {
+.analysis-form input {
+    width: 100%;
     padding: 10px;
-    border-radius: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    width: 200px;
-}
-
-.analysis-add-button {
-    padding: 10px 20px;
     border-radius: 5px;
-    border: none;
-    background-color: #61dafb;
-    color: #282c34;
-    cursor: pointer;
 }
 
 .analysis-message {
-    margin: 10px 0;
+    font-size: 1.2rem;
+    color: white;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
 }

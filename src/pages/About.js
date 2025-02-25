@@ -3,9 +3,9 @@ import "../styles/About.css";
 
 const About = () => {
     return (
-        <div className="about-container">
+        <div className="page-container">
             <Navbar />
-            <div className="about-content">
+            <div className="page-content">
                 <h2>Despre Wellthy4Life</h2>
                 <p>
                     <strong>Wellthy4Life</strong> este o aplicație web concepută pentru gestionarea și monitorizarea analizelor medicale.

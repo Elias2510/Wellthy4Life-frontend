@@ -1,54 +1,66 @@
-import { useEffect, useState } from "react";
-import api from "../services/api";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/Dashboard.css";
 
 const Dashboard = () => {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
+    const [analyses, setAnalyses] = useState([]);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchAnalyses = async () => {
             try {
                 const token = localStorage.getItem("token");
                 if (!token) {
-                    navigate("/login");
+                    setError("You must be logged in to see your analyses.");
                     return;
                 }
 
-                const response = await api.get("/user/me", {
-                    headers: { Authorization: `Bearer ${token}` },
+                const response = await axios.get("http://localhost:8080/api/analyses/user", {
+                    headers: { Authorization: `Bearer ${token}` }
                 });
 
-                setUser(response.data);
+                setAnalyses(response.data);
             } catch (err) {
-                localStorage.removeItem("token");
-                navigate("/login");
+                console.error("Error fetching analyses:", err);
+                setError("Failed to load analyses. Check your authentication.");
             }
         };
 
-        fetchUser();
-    }, [navigate]);
+        fetchAnalyses();
+    }, []);
 
     return (
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
-            <h1>Bine ai venit, {user ? user.fullName : "Utilizator"}</h1>
-            <button
-                onClick={() => {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                }}
-                style={{
-                    marginTop: "20px",
-                    padding: "10px",
-                    background: "red",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                }}
-            >
-                Logout
-            </button>
+        <div className="page-container">
+            <h1>Your Medical Analyses</h1>
+            {error && <p className="error-message">{error}</p>}
+            {analyses.length > 0 ? (
+                <table className="analysis-table">
+                    <thead>
+                    <tr>
+                        <th>Test Name</th>
+                        <th>Value</th>
+                        <th>Unit</th>
+                        <th>Normal Min</th>
+                        <th>Normal Max</th>
+                        <th>Test Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {analyses.map((analysis) => (
+                        <tr key={analysis.id}>
+                            <td>{analysis.testName}</td>
+                            <td>{analysis.value}</td>
+                            <td>{analysis.unit}</td>
+                            <td>{analysis.normalMin}</td>
+                            <td>{analysis.normalMax}</td>
+                            <td>{analysis.testDate}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No analyses found.</p>
+            )}
         </div>
     );
 };

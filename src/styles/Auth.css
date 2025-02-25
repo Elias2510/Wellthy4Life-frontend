@@ -1,12 +1,16 @@
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background: linear-gradient(to right, #007bff, #00d4ff);
-    color: white;
-    font-family: Arial, sans-serif;
+    height: 100vh;
+    padding-top: 80px; /* Ajustează pentru a nu fi acoperit de navbar */
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
 }
 
 .auth-form {
@@ -61,13 +65,4 @@ button:hover {
 
 .link:hover {
     text-decoration: underline;
-}
-
-.back-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-bottom: 20px;
 }

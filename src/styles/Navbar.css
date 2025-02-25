@@ -1,36 +1,65 @@
 .navbar {
+    width: 100%;
+    background: linear-gradient(to right, #007bff, #00d4ff);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 50px;
-    background: rgba(0, 0, 0, 0.3);
-    position: fixed;
-    width: 96%;
-    top: 0;
-    left: 0;
-    backdrop-filter: blur(5px);
+    padding: 10px 10px;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
+    color: white;
     font-size: 1.8rem;
     font-weight: bold;
-    color: white;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.logo:hover {
+    opacity: 0.8;
 }
 
 .navbar ul {
-    display: flex;
     list-style: none;
-    gap: 20px;
+    display: flex;
+    gap: 15px; /* Reduce spațiul dintre elemente */
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
-.navbar ul li {
+.navbar li {
     cursor: pointer;
-    font-size: 1.2rem;
     color: white;
-    transition: 0.3s;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: background 0.3s, border-radius 0.3s;
 }
 
-.navbar ul li:hover {
-    text-decoration: underline;
+.navbar li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.logout-button {
+    background: red;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+    background: darkred;
 }
