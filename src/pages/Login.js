@@ -46,7 +46,7 @@ const Login = () => {
                 />
                 <button type="submit">Login</button>
                 <p className="link" onClick={() => navigate("/register")}>
-                    Don't have an account? Register now.
+                    Nu ai deja un cont? Înregistrează-te acum!
                 </p>
             </form>
         </div>
