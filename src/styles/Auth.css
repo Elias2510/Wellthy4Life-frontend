@@ -1,7 +1,7 @@
 .auth-container {
-    background: linear-gradient(to right, #007bff, #00d4ff);
-    height: 100vh;
-    padding-top: 80px; /* Ajustează pentru a nu fi acoperit de navbar */
+    background: linear-gradient(to bottom right, #e6f0fa, #fdfdfd);
+    height: 100%;
+    padding-top: 80px;
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
@@ -9,15 +9,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: white;
+    color: #2f4f4f;
+
 }
 
 .auth-form {
     background: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,7 +25,7 @@
 }
 
 h2 {
-    color: #007bff;
+    color: #2f4f4f;
     margin-bottom: 20px;
 }
 
@@ -33,32 +33,36 @@ input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccd5db;
     border-radius: 5px;
+    background-color: #fdfdfd;
+    font-size: 1rem;
+    color: #333;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background: #007bff;
-    color: white;
+    background: #a7c7e7;
+    color: #2f4f4f;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #c2e9f7;
 }
 
 .error-message {
-    color: red;
+    color: #b94a48;
     margin-bottom: 10px;
 }
 
 .link {
-    color: #007bff;
+    color: #3b8edc;
     cursor: pointer;
     font-weight: bold;
 }

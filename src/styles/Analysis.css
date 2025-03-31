@@ -1,19 +1,19 @@
 .page-container {
-    min-height: 100vh; /* Asigură că pagina are cel puțin înălțimea ecranului */
+    min-height: 100vh;
     text-align: center;
-    padding-top: 80px; /* Evită suprapunerea cu navbar-ul */
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: #f4f6f8;
 }
-
 
 .analysis-form {
     background: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,25 +25,29 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccd5db;
     border-radius: 5px;
+    background-color: #fdfdfd;
+    font-size: 1rem;
+    color: #333;
 }
 
 .analysis-message {
     font-size: 1.2rem;
-    color: white;
+    color: #4a4a4a;
     margin-top: 10px;
 }
 
 button {
     padding: 10px 20px;
-    background: #007bff;
-    color: white;
+    background: #a7c7e7;
+    color: #2f4f4f;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #c2e9f7;
 }

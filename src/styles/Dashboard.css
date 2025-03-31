@@ -1,45 +1,76 @@
 .page-container {
-    min-height: 100vh; /* Asigură că pagina are cel puțin înălțimea ecranului */
-    text-align: center;
-    padding-top: 80px; /* Evită suprapunerea cu navbar-ul */
+    min-height: 100vh;
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    background: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
     font-size: 2.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    color: #2f4f4f;
 }
 
 .analysis-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background: white;
-    color: dimgrey;
-    border-radius: 10px;
+    width: 90%;
+    max-width: 1100px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    color: #444;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.analysis-table:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .analysis-table th, .analysis-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 14px 16px;
     text-align: center;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .analysis-table th {
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(to right, #a7c7e7, #c2e9f7);
+    color: #2f4f4f;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .analysis-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9fbfd;
+}
+
+.analysis-table tr:last-child td {
+    border-bottom: none;
+}
+
+.analysis-table td {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-right: 1px solid #f1f1f1;
+}
+
+.analysis-table td:last-child,
+.analysis-table th:last-child {
+    border-right: none;
 }
 
 .error-message {
-    color: red;
-    margin-top: 10px;
+    color: #b94a48;
+    font-weight: 500;
+    margin-top: 15px;
+    background-color: #fbeaea;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
 }

@@ -1,11 +1,25 @@
 .page-container {
-    min-height: 100vh; /* Asigură că pagina are cel puțin înălțimea ecranului */
-    text-align: center;
-    padding-top: 80px; /* Evită suprapunerea cu navbar-ul */
+    display: compact;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    background: linear-gradient(to bottom right, #e6f0fa, #fdfdfd);
+    overflow: hidden;
+    position: relative;
+}
+
+.page-content {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    flex-grow: 1;
 }
 
 
@@ -21,3 +35,25 @@ p {
     max-width: 700px;
     margin: 0 auto;
 }
+.bubble-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-bubble {
+    background: linear-gradient(to right, #a7c7e7, #c2e9f7);
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    font-size: 1.05rem;
+    color: #3a3a3a;
+    line-height: 1.6;
+    transition: transform 0.3s ease;
+}
+/**
+.info-bubble:hover {
+    transform: translateY(-4px);
+    background: #e7f2fa;
+}
+*/
