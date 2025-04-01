@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const [analyses, setAnalyses] = useState([]);
     const [error, setError] = useState('');
     const { isAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAnalyses = async () => {
@@ -39,10 +41,26 @@ const Dashboard = () => {
         return '#d4edda';
     };
 
-
     return (
         <div className="page-container">
             <h1>Analizele Tale Medicale</h1>
+
+            <button
+                style={{
+                    marginBottom: "20px",
+                    padding: "10px 20px",
+                    borderRadius: "8px",
+                    background: "#a7c7e7",
+                    color: "#2f4f4f",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    border: "none"
+                }}
+                onClick={() => navigate("/charts")}
+            >
+                Vezi graficele tale
+            </button>
+
             {error && <p className="error-message">{error}</p>}
             {analyses.length > 0 ? (
                 <table className="analysis-table">
