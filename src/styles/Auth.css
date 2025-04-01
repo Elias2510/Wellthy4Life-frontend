@@ -70,3 +70,16 @@ button:hover {
 .link:hover {
     text-decoration: underline;
 }
+
+.role-select {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 15px 0;
+    text-align: left;
+    width: 100%;
+}
+.role-select label {
+    font-size: 0.95rem;
+    color: #2f4f4f;
+}
