@@ -25,12 +25,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (
-            !userData.fullName ||
-            !userData.email ||
-            !userData.password ||
-            !userData.confirmPassword
-        ) {
+        if (!userData.fullName || !userData.email || !userData.password || !userData.confirmPassword) {
             setMessage("Te rugăm să completezi toate câmpurile necesare.");
             return;
         }
@@ -55,7 +50,11 @@ const Register = () => {
             setTimeout(() => navigate("/login"), 2000);
         } catch (error) {
             console.error(error);
-            setMessage("Înregistrarea a eșuat. Verifică datele introduse.");
+            if (error.response && error.response.data) {
+                setMessage(error.response.data); // Prinde mesajul de pe backend (ex: email deja folosit)
+            } else {
+                setMessage("Înregistrarea a eșuat. Verifică datele introduse.");
+            }
         }
     };
 

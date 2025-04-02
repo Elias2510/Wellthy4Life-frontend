@@ -1,53 +1,23 @@
 .page-container {
     min-height: 100vh;
-    text-align: center;
     padding-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.analysis-form {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 400px;
-    margin: 0 auto;
-}
-
-.analysis-form input[type="file"] {
-    margin-bottom: 15px;
-}
-
-.analysis-message {
-    font-size: 1rem;
-    color: #4a4a4a;
-    margin-top: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    background: #a7c7e7;
+h1 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
     color: #2f4f4f;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-button:hover {
-    background: #c2e9f7;
-}
 .method-switch {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 25px;
 }
 
 .method-switch button {
@@ -56,7 +26,7 @@ button:hover {
     border-radius: 8px;
     background-color: #e0eafc;
     color: #2f4f4f;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -67,4 +37,82 @@ button:hover {
 
 .method-switch button:hover {
     background-color: #c2dfff;
+}
+
+.analysis-form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dual-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dual-input label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #3f3f3f;
+}
+
+.input-dropdown,
+.input-text,
+.analysis-form input[type="number"],
+.analysis-form input[type="date"],
+.analysis-form input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fbfcfe;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.input-dropdown:focus,
+.input-text:focus,
+.analysis-form input:focus {
+    border-color: #90caf9;
+    box-shadow: 0 0 0 3px rgba(144, 202, 249, 0.3);
+    outline: none;
+}
+
+.analysis-form button {
+    padding: 12px;
+    background: linear-gradient(to right, #a7c7e7, #c2e9f7);
+    color: #2f4f4f;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.analysis-form button:hover {
+    background: linear-gradient(to right, #9bbfd9, #b5deec);
+}
+
+.analysis-message {
+    background: #e7f2e7;
+    color: #2e7d32;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    text-align: center;
 }

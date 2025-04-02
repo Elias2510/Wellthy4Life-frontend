@@ -3,6 +3,31 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/Analysis.css";
 
+const predefinedTests = [
+    { name: "Glicemie", unit: "mg/dL" },
+    { name: "Colesterol total", unit: "mg/dL" },
+    { name: "Colesterol HDL", unit: "mg/dL" },
+    { name: "Colesterol LDL", unit: "mg/dL" },
+    { name: "Trigliceride", unit: "mg/dL" },
+    { name: "Hemoglobină", unit: "g/dL" },
+    { name: "Hematocrit", unit: "%" },
+    { name: "Leucocite", unit: "10^3/µL" },
+    { name: "Trombocite", unit: "10^3/µL" },
+    { name: "Creatinină", unit: "mg/dL" },
+    { name: "Uree", unit: "mg/dL" },
+    { name: "Acid uric", unit: "mg/dL" },
+    { name: "TGO (AST)", unit: "U/L" },
+    { name: "TGP (ALT)", unit: "U/L" },
+    { name: "Bilirubină totală", unit: "mg/dL" },
+    { name: "Bilirubină directă", unit: "mg/dL" },
+    { name: "Calciu seric", unit: "mg/dL" },
+    { name: "Fier seric", unit: "µg/dL" },
+    { name: "TSH", unit: "µUI/mL" },
+    { name: "FT4 (Tiroxină liberă)", unit: "ng/dL" },
+    { name: "PCR (Proteina C reactivă)", unit: "mg/L" },
+    { name: "Vitamina D", unit: "ng/mL" }
+];
+
 const Analysis = () => {
     const [formData, setFormData] = useState({
         testName: "",
@@ -85,10 +110,76 @@ const Analysis = () => {
             {message && <p className="analysis-message">{message}</p>}
 
             {selectedMethod === "manual" ? (
-                <form className="analysis-form" onSubmit={handleSubmit}>
-                    <input type="text" name="testName" placeholder="Nume Test" value={formData.testName} onChange={handleChange} />
+                <form className="analysis-form styled-form" onSubmit={handleSubmit}>
+                    <div className="dual-input">
+                        <label>
+                            Analiză din listă:
+                            <input
+                                list="testNames"
+                                name="testName"
+                                className="input-dropdown"
+                                value={formData.testName}
+                                onChange={(e) => {
+                                    const selected = predefinedTests.find(t => t.name === e.target.value);
+                                    if (selected) {
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            testName: selected.name,
+                                            unit: selected.unit
+                                        }));
+                                    } else {
+                                        setFormData((prev) => ({ ...prev, testName: e.target.value }));
+                                    }
+                                }}
+                            />
+                            <datalist id="testNames">
+                                {predefinedTests.map((test, index) => (
+                                    <option key={index} value={test.name} />
+                                ))}
+                            </datalist>
+                        </label>
+
+                        <label>
+                            Adauga analiza manual:
+                            <input
+                                type="text"
+                                name="testName"
+                                className="input-text"
+                                onBlur={handleChange}
+                            />
+                        </label>
+                    </div>
+
                     <input type="number" step="0.01" name="value" placeholder="Valoare" value={formData.value} onChange={handleChange} />
-                    <input type="text" name="unit" placeholder="Unitate" value={formData.unit} onChange={handleChange} />
+
+                    <div className="dual-input">
+                        <label>
+                            Unitate din listă:
+                            <input
+                                list="units"
+                                name="unit"
+                                className="input-dropdown"
+                                value={formData.unit}
+                                onChange={handleChange}
+                            />
+                            <datalist id="units">
+                                {[...new Set(predefinedTests.map(t => t.unit))].map((unit, index) => (
+                                    <option key={index} value={unit} />
+                                ))}
+                            </datalist>
+                        </label>
+
+                        <label>
+                            Adauga unitatea manual:
+                            <input
+                                type="text"
+                                name="unit"
+                                className="input-text"
+                                onBlur={handleChange}
+                            />
+                        </label>
+                    </div>
+
                     <input type="number" step="0.01" name="normalMin" placeholder="Minim Normal" value={formData.normalMin} onChange={handleChange} />
                     <input type="number" step="0.01" name="normalMax" placeholder="Maxim Normal" value={formData.normalMax} onChange={handleChange} />
                     <input type="date" name="testDate" placeholder="Data Test" value={formData.testDate} onChange={handleChange} />
