@@ -16,16 +16,25 @@ const Login = () => {
         setError("");
         try {
             const response = await axios.post("http://localhost:8080/auth/login", { email, password });
+            const token = response.data.token;
 
 
-            login(response.data.token);
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const userRole = payload.role || payload.roles?.[0] || "USER";
 
+            login(token, userRole);
 
+            if (userRole === "DOCTOR") {
+                navigate("/pacienti");
+            } else {
+                navigate("/dashboard");
+            }
         } catch (err) {
             console.error("Login error:", err);
-            setError("Invalid email or password");
+            setError("Email sau parolă incorecte");
         }
     };
+
 
     return (
         <div className="auth-container">
@@ -40,13 +49,13 @@ const Login = () => {
                 />
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Parolă"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Login</button>
+                <button type="submit">Autentificare</button>
                 <p className="link" onClick={() => navigate("/register")}>
-                    Nu ai deja un cont? Înregistrează-te acum!
+                    Nu ai cont? Înregistrează-te!
                 </p>
             </form>
         </div>

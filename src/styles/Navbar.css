@@ -63,3 +63,7 @@
 .logout-button:hover {
     background: #cd5c5c;
 }
+.nav-links.centered {
+    justify-content: center;
+    width: 100%;
+}

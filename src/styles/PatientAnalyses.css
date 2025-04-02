@@ -1,0 +1,45 @@
+
+.patient-analyses-container {
+    padding-top: 80px;
+    min-height: 100vh;
+    background: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.patient-analyses-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2f4f4f;
+}
+
+.analysis-list {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    width: 90%;
+    max-width: 900px;
+}
+
+.analysis-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.analysis-list th, .analysis-list td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.analysis-list th {
+    background: #a7c7e7;
+    color: #2f4f4f;
+}
+
+.analysis-list tr:nth-child(even) {
+    background-color: #f9fbfd;
+}
