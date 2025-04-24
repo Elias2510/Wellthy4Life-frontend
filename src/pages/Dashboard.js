@@ -6,12 +6,13 @@ import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const [analyses, setAnalyses] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
     const [error, setError] = useState('');
     const { isAuthenticated } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchAnalyses = async () => {
+        const fetchData = async () => {
             if (!isAuthenticated) {
                 setError('Trebuie să fii autentificat pentru a vedea analizele tale.');
                 return;
@@ -19,26 +20,38 @@ const Dashboard = () => {
 
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:8080/api/analyses/user', {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                setAnalyses(response.data);
+
+                const [analysesRes, recommendationsRes] = await Promise.all([
+                    axios.get('http://localhost:8080/api/analyses/user', {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                    axios.get('http://localhost:8080/api/recommendations/user', {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                ]);
+
+                setAnalyses(analysesRes.data);
+                setRecommendations(recommendationsRes.data);
             } catch (err) {
-                console.error('Eroare la preluarea analizelor:', err);
-                setError('Nu s-au putut încărca analizele. Verifică autentificarea.');
+                console.error('Eroare la încărcarea datelor:', err);
+                setError('Nu s-au putut încărca datele. Verifică autentificarea.');
             }
         };
 
-        fetchAnalyses();
+        fetchData();
     }, [isAuthenticated]);
 
     const getValueColor = (value, min, max) => {
         if (min == null || max == null || value == null) return '#eee';
         if (value < min || value > max) return '#f8d7da';
-        const range = max - min;
-        const buffer = range * 0.1;
+        const buffer = (max - min) * 0.1;
         if (value < min + buffer || value > max - buffer) return '#fff3cd';
         return '#d4edda';
+    };
+
+    const getRecommendationText = (analysisId) => {
+        const rec = recommendations.find(r => r.analysisId === analysisId);
+        return rec ? rec.recommendationText : '-';
     };
 
     return (
@@ -72,6 +85,7 @@ const Dashboard = () => {
                         <th>Minim Normal</th>
                         <th>Maxim Normal</th>
                         <th>Data Test</th>
+                        <th>Recomandare</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -87,6 +101,7 @@ const Dashboard = () => {
                                 <td>{analysis.normalMin}</td>
                                 <td>{analysis.normalMax}</td>
                                 <td>{analysis.testDate}</td>
+                                <td>{getRecommendationText(analysis.id)}</td>
                             </tr>
                         );
                     })}

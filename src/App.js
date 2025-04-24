@@ -15,6 +15,8 @@ import PatientAnalyses from './pages/PatientAnalyses'; // <- Adăugat
 import Navbar from './components/Navbar';
 import './App.css';
 
+
+
 function App() {
     return (
         <AuthProvider>
@@ -32,7 +34,10 @@ function App() {
                     <Route path="/patients" element={<Pacienti />} />
 
 
+
                     <Route path="/pacient/:id" element={<PatientAnalyses />} />
+
+
 
                 </Routes>
             </Router>

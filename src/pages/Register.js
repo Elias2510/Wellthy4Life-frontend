@@ -35,11 +35,8 @@ const Register = () => {
             return;
         }
 
-        if (
-            (userData.requestedRole === "ADMIN" || userData.requestedRole === "DOCTOR") &&
-            !userData.accessCode
-        ) {
-            setMessage("Te rugăm să introduci codul pentru rolul selectat.");
+        if (userData.requestedRole === "DOCTOR" && !userData.accessCode) {
+            setMessage("Te rugăm să introduci codul pentru rolul de doctor.");
             return;
         }
 
@@ -51,7 +48,7 @@ const Register = () => {
         } catch (error) {
             console.error(error);
             if (error.response && error.response.data) {
-                setMessage(error.response.data); // Prinde mesajul de pe backend (ex: email deja folosit)
+                setMessage(error.response.data);
             } else {
                 setMessage("Înregistrarea a eșuat. Verifică datele introduse.");
             }
@@ -110,7 +107,7 @@ const Register = () => {
                             checked={userData.requestedRole === "USER"}
                             onChange={handleChange}
                         />
-                        Utilizator (implicit)
+                        Utilizator
                     </label>
                     <label>
                         <input
@@ -122,27 +119,18 @@ const Register = () => {
                         />
                         Doctor
                     </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="requestedRole"
-                            value="ADMIN"
-                            checked={userData.requestedRole === "ADMIN"}
-                            onChange={handleChange}
-                        />
-                        Administrator
-                    </label>
                 </div>
 
-                {(userData.requestedRole === "DOCTOR" || userData.requestedRole === "ADMIN") && (
+                {userData.requestedRole === "DOCTOR" && (
                     <input
-                        type="text"
+                        type="password"
                         name="accessCode"
-                        placeholder={`Cod de acces pentru ${userData.requestedRole}`}
+                        placeholder="Cod de acces pentru DOCTOR"
                         value={userData.accessCode}
                         onChange={handleChange}
                     />
                 )}
+
 
                 <button type="submit">Înregistrare</button>
                 <p>Ai deja un cont? <span className="link" onClick={() => navigate("/login")}>Autentificare</span></p>

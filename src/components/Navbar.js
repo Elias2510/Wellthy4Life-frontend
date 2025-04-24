@@ -23,6 +23,7 @@ const Navbar = () => {
                         <li onClick={() => navigate("/about")}>Despre</li>
                         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
                         <li onClick={() => navigate("/analysis")}>Adaugă Analize</li>
+
                         <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
                     </>
                 ) : (
