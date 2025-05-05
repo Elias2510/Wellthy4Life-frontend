@@ -20,15 +20,16 @@ const Navbar = () => {
                 ) : isAuthenticated && role === "ADMIN" ? (
                     <>
                         <li onClick={() => navigate("/")}>Acasă</li>
-                        <li onClick={() => navigate("/admin")}>Panou Admin</li>
+                        <li onClick={() => navigate("/admin")}>Admin Panel</li>
+                        <li onClick={() => navigate("/admin/support-messages")}>Mesaje Suport</li>
                         <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
                     </>
                 ) : isAuthenticated ? (
                     <>
                         <li onClick={() => navigate("/")}>Acasă</li>
-                        <li onClick={() => navigate("/about")}>Despre</li>
                         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
                         <li onClick={() => navigate("/analysis")}>Adaugă Analize</li>
+                        <li onClick={() => navigate("/help")}>Ajutor</li>
                         <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
                     </>
                 ) : (
@@ -39,6 +40,7 @@ const Navbar = () => {
                         <li onClick={() => navigate("/register")}>Register</li>
                     </>
                 )}
+
             </ul>
         </nav>
     );

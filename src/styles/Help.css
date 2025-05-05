@@ -1,0 +1,44 @@
+.help-page {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.help-page h2 {
+    color: #2f4f4f;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.help-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.help-form input,
+.help-form textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.help-form button {
+    padding: 10px;
+    background-color: #a7c7e7;
+    color: #2f4f4f;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.help-feedback {
+    text-align: center;
+    color: green;
+    font-weight: 500;
+}

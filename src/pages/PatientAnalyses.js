@@ -169,15 +169,7 @@ const PatientAnalyses = () => {
                 </tbody>
             </table>
 
-            <h2>Recomandări primite</h2>
-            <ul className="recommendation-list">
-                {recommendations.map((r, idx) => (
-                    <li key={idx} className="recommendation-card">
-                        <p><strong>Analiză ID:</strong> {r.analysisId}</p>
-                        <p>{r.recommendationText}</p>
-                    </li>
-                ))}
-            </ul>
+
         </div>
     );
 };

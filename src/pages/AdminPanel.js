@@ -6,19 +6,14 @@ const AdminPanel = () => {
     const [users, setUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [analyses, setAnalyses] = useState([]);
-    const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
-        password: "",
-        birthDate: "",
-        requestedRole: "USER",
-    });
+    const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
 
     const token = localStorage.getItem("token");
 
     useEffect(() => {
         fetchUsers();
+        fetchMessages();
     }, []);
 
     const fetchUsers = async () => {
@@ -29,6 +24,19 @@ const AdminPanel = () => {
             setUsers(response.data);
         } catch (err) {
             console.error("Eroare la preluarea utilizatorilor:", err);
+        }
+    };
+    const unreadCount = messages.filter(m => !m.read).length;
+
+
+    const fetchMessages = async () => {
+        try {
+            const res = await axios.get("http://localhost:8080/api/admin/messages", {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setMessages(res.data);
+        } catch (err) {
+            console.error("Eroare la preluarea mesajelor utilizatorilor:", err);
         }
     };
 
@@ -69,23 +77,11 @@ const AdminPanel = () => {
         }
     };
 
-    const handleAddUser = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post("http://localhost:8080/api/admin/user/add", formData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            setMessage("Utilizator adăugat cu succes.");
-            setFormData({ fullName: "", email: "", password: "", birthDate: "", requestedRole: "USER" });
-            fetchUsers();
-        } catch (err) {
-            setMessage("Eroare la adăugarea utilizatorului.");
-        }
-    };
-
     return (
         <div className="page-container">
             <h1>Panou Administrator</h1>
+
+
 
             <table className="admin-table">
                 <thead>
@@ -124,23 +120,20 @@ const AdminPanel = () => {
                             </li>
                         ))}
                     </ul>
+
+
+                    <ul className="user-messages">
+                        {messages.map((msg, idx) => (
+                            <li key={idx} className={msg.read ? "read" : "unread"}>
+                                <strong>{msg.userEmail}</strong>: {msg.subject} <br />
+                                <p>{msg.content}</p>
+                                <em>{new Date(msg.createdAt).toLocaleString()}</em>
+                            </li>
+                        ))}
+                    </ul>
+
                 </div>
             )}
-
-            <form className="add-user-form" onSubmit={handleAddUser}>
-                <h3>Adaugă utilizator nou</h3>
-                {message && <p>{message}</p>}
-                <input type="text" placeholder="Nume complet" value={formData.fullName} onChange={(e) => setFormData({ ...formData, fullName: e.target.value })} />
-                <input type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-                <input type="password" placeholder="Parolă" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
-                <input type="date" placeholder="Data nașterii" value={formData.birthDate} onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })} />
-                <select value={formData.requestedRole} onChange={(e) => setFormData({ ...formData, requestedRole: e.target.value })}>
-                    <option value="USER">USER</option>
-                    <option value="DOCTOR">DOCTOR</option>
-                    <option value="ADMIN">ADMIN</option>
-                </select>
-                <button type="submit">Adaugă utilizator</button>
-            </form>
         </div>
     );
 };

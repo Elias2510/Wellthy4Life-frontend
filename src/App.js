@@ -14,9 +14,8 @@ import PatientAnalyses from './pages/PatientAnalyses'; // <- Adăugat
 import AdminPanel from './pages/AdminPanel'; // adaugă importul
 import Navbar from './components/Navbar';
 import './App.css';
-
-
-
+import Help from './pages/Help';
+import AdminSupportMessages from './pages/AdminSupportMessages';
 function App() {
     return (
         <AuthProvider>
@@ -37,6 +36,13 @@ function App() {
 
                     <Route path="/admin" element={<AdminPanel />} />
 
+
+
+                    <Route path="/help" element={<Help />} />
+
+
+
+                    <Route path="/admin/support-messages" element={<AdminSupportMessages />} />
 
                     <Route path="/pacient/:id" element={<PatientAnalyses />} />
 
