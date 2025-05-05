@@ -18,7 +18,6 @@ const Login = () => {
             const response = await axios.post("http://localhost:8080/auth/login", { email, password });
             const token = response.data.token;
 
-
             const payload = JSON.parse(atob(token.split('.')[1]));
             const userRole = payload.role || payload.roles?.[0] || "USER";
 
@@ -26,6 +25,8 @@ const Login = () => {
 
             if (userRole === "DOCTOR") {
                 navigate("/pacienti");
+            } else if (userRole === "ADMIN") {
+                navigate("/admin-panel"); // presupunem că aceasta e pagina dedicată adminului
             } else {
                 navigate("/dashboard");
             }
@@ -34,7 +35,6 @@ const Login = () => {
             setError("Email sau parolă incorecte");
         }
     };
-
 
     return (
         <div className="auth-container">

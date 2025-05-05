@@ -17,13 +17,18 @@ const Navbar = () => {
                         <li onClick={() => navigate("/patients")}>Pacienți</li>
                         <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
                     </>
+                ) : isAuthenticated && role === "ADMIN" ? (
+                    <>
+                        <li onClick={() => navigate("/")}>Acasă</li>
+                        <li onClick={() => navigate("/admin")}>Panou Admin</li>
+                        <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
+                    </>
                 ) : isAuthenticated ? (
                     <>
                         <li onClick={() => navigate("/")}>Acasă</li>
                         <li onClick={() => navigate("/about")}>Despre</li>
                         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
                         <li onClick={() => navigate("/analysis")}>Adaugă Analize</li>
-
                         <li className="logout-button" onClick={() => { logout(); navigate("/"); }}>Logout</li>
                     </>
                 ) : (

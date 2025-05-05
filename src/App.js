@@ -11,7 +11,7 @@ import EditAnalysis from './pages/EditAnalysis';
 import AnalysisCharts from './pages/AnalysisCharts';
 import Pacienti from './pages/Patients';
 import PatientAnalyses from './pages/PatientAnalyses'; // <- Adăugat
-
+import AdminPanel from './pages/AdminPanel'; // adaugă importul
 import Navbar from './components/Navbar';
 import './App.css';
 
@@ -33,6 +33,9 @@ function App() {
                     <Route path="/charts" element={<AnalysisCharts />} />
                     <Route path="/patients" element={<Pacienti />} />
 
+
+
+                    <Route path="/admin" element={<AdminPanel />} />
 
 
                     <Route path="/pacient/:id" element={<PatientAnalyses />} />

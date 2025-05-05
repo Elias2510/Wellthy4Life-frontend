@@ -7,7 +7,12 @@ import '../styles/Dashboard.css';
 const Dashboard = () => {
     const [analyses, setAnalyses] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
+    const [filteredAnalyses, setFilteredAnalyses] = useState([]);
+    const [filterName, setFilterName] = useState('');
+    const [filterDate, setFilterDate] = useState('');
+    const [filterSeverity, setFilterSeverity] = useState('');
     const [error, setError] = useState('');
+
     const { isAuthenticated } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -32,6 +37,7 @@ const Dashboard = () => {
 
                 setAnalyses(analysesRes.data);
                 setRecommendations(recommendationsRes.data);
+                setFilteredAnalyses(analysesRes.data);
             } catch (err) {
                 console.error('Eroare la încărcarea datelor:', err);
                 setError('Nu s-au putut încărca datele. Verifică autentificarea.');
@@ -41,18 +47,52 @@ const Dashboard = () => {
         fetchData();
     }, [isAuthenticated]);
 
-    const getValueColor = (value, min, max) => {
-        if (min == null || max == null || value == null) return '#eee';
-        if (value < min || value > max) return '#f8d7da';
+    const getSeverity = (value, min, max) => {
+        if (value < min || value > max) return 'red';
         const buffer = (max - min) * 0.1;
-        if (value < min + buffer || value > max - buffer) return '#fff3cd';
-        return '#d4edda';
+        if (value < min + buffer || value > max - buffer) return 'yellow';
+        return 'green';
+    };
+
+    const getValueColor = (severity) => {
+        if (severity === 'red') return '#f8d7da';
+        if (severity === 'yellow') return '#fff3cd';
+        if (severity === 'green') return '#d4edda';
+        return '#eee';
     };
 
     const getRecommendationText = (analysisId) => {
         const rec = recommendations.find(r => r.analysisId === analysisId);
         return rec ? rec.recommendationText : '-';
     };
+
+    const handleFilter = () => {
+        let filtered = [...analyses];
+
+        if (filterName.trim()) {
+            filtered = filtered.filter(a =>
+                a.testName.toLowerCase().includes(filterName.toLowerCase())
+            );
+        }
+
+        if (filterDate) {
+            filtered = filtered.filter(a => a.testDate === filterDate);
+        }
+
+        if (filterSeverity) {
+            filtered = filtered.filter(a =>
+                getSeverity(a.value, a.normalMin, a.normalMax) === filterSeverity
+            );
+        }
+
+        setFilteredAnalyses(filtered);
+    };
+
+    useEffect(() => {
+        handleFilter();
+    }, [filterName, filterDate, filterSeverity, analyses]);
+
+    const uniqueDates = [...new Set(analyses.map(a => a.testDate))];
 
     return (
         <div className="page-container">
@@ -74,8 +114,29 @@ const Dashboard = () => {
                 Vezi graficele tale
             </button>
 
+            <div className="filters">
+                <input
+                    type="text"
+                    placeholder="Filtru după nume analiză"
+                    value={filterName}
+                    onChange={(e) => setFilterName(e.target.value)}
+                />
+                <select value={filterDate} onChange={(e) => setFilterDate(e.target.value)}>
+                    <option value="">Toate datele</option>
+                    {uniqueDates.map((date, idx) => (
+                        <option key={idx} value={date}>{date}</option>
+                    ))}
+                </select>
+                <select value={filterSeverity} onChange={(e) => setFilterSeverity(e.target.value)}>
+                    <option value="">Toate severitățile</option>
+                    <option value="red">Critice (roșu)</option>
+                    <option value="yellow">Aproape de limită (galben)</option>
+                    <option value="green">Normale (verde)</option>
+                </select>
+            </div>
+
             {error && <p className="error-message">{error}</p>}
-            {analyses.length > 0 ? (
+            {filteredAnalyses.length > 0 ? (
                 <table className="analysis-table">
                     <thead>
                     <tr>
@@ -89,12 +150,16 @@ const Dashboard = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {analyses.map((analysis) => {
-                        const bgColor = getValueColor(analysis.value, analysis.normalMin, analysis.normalMax);
+                    {filteredAnalyses.map((analysis) => {
+                        const severity = getSeverity(analysis.value, analysis.normalMin, analysis.normalMax);
                         return (
                             <tr key={analysis.id}>
                                 <td>{analysis.testName}</td>
-                                <td style={{ backgroundColor: bgColor, fontWeight: 'bold', color: '#222' }}>
+                                <td style={{
+                                    backgroundColor: getValueColor(severity),
+                                    fontWeight: 'bold',
+                                    color: '#222'
+                                }}>
                                     {analysis.value}
                                 </td>
                                 <td>{analysis.unit}</td>
