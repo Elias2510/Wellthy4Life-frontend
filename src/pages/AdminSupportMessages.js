@@ -18,7 +18,7 @@ const AdminSupportMessages = () => {
             });
             setMessages(res.data);
         } catch (err) {
-            console.error("Eroare la preluarea mesajelor:", err);
+            console.error("Error fetching messages:", err);
         }
     };
 
@@ -29,13 +29,24 @@ const AdminSupportMessages = () => {
             });
             fetchMessages();
         } catch (err) {
-            console.error("Eroare la marcare ca citit:", err);
+            console.error("Error marking as read:", err);
+        }
+    };
+
+    const handleDeleteMessage = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8080/api/support/delete/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setMessages(messages.filter(msg => msg.id !== id));
+        } catch (err) {
+            console.error("Error deleting message:", err);
         }
     };
 
     return (
         <div className="admin-support-container">
-            <h1>Mesaje către Suport</h1>
+            <h1>Support Messages</h1>
             <div className="message-list">
                 {messages.map(msg => (
                     <div
@@ -45,7 +56,7 @@ const AdminSupportMessages = () => {
                     >
                         <div className="message-header">
                             <strong>{msg.userEmail}</strong>
-                            {!msg.read && <span className="badge">Nou</span>}
+                            {!msg.read && <span className="badge">New</span>}
                         </div>
                         <div className="message-subject">{msg.subject}</div>
                         <div className="message-date">
@@ -57,15 +68,16 @@ const AdminSupportMessages = () => {
 
             {selectedMessage && (
                 <div className="message-details">
-                    <h2>Detalii Mesaj</h2>
-                    <p><strong>De la:</strong> {selectedMessage.userEmail}</p>
-                    <p><strong>Subiect:</strong> {selectedMessage.subject}</p>
-                    <p><strong>Conținut:</strong> {selectedMessage.content}</p>
-                    <p><strong>Trimis la:</strong> {new Date(selectedMessage.createdAt).toLocaleString()}</p>
+                    <h2>Message Details</h2>
+                    <p><strong>From:</strong> {selectedMessage.userEmail}</p>
+                    <p><strong>Subject:</strong> {selectedMessage.subject}</p>
+                    <p><strong>Content:</strong> {selectedMessage.content}</p>
+                    <p><strong>Sent at:</strong> {new Date(selectedMessage.createdAt).toLocaleString()}</p>
                     {!selectedMessage.read && (
-                        <button onClick={() => handleMarkAsRead(selectedMessage.id)}>
-                            Marchează ca citit
-                        </button>
+                        <button onClick={() => handleMarkAsRead(selectedMessage.id)}>Citit</button>
+                    )}
+                    {selectedMessage.read && (
+                        <button onClick={() => handleDeleteMessage(selectedMessage.id)}>Delete Message</button>
                     )}
                 </div>
             )}

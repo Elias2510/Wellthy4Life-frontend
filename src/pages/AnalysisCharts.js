@@ -138,7 +138,7 @@ const AnalysisCharts = () => {
                     </div>
                     <button
                         onClick={handleExportPDF}
-                        style={{ marginTop: 20, padding: "8px 16px", borderRadius: "8px", background: "#a7c7e7", border: "none", cursor: "pointer", fontWeight: "bold" }}
+                        style={{ marginTop:40,  padding: "16px 16px", borderRadius: "8px", background: "#a7c7e7", border: "none", cursor: "pointer", fontWeight: "bold",display: "flex" }}
                     >
                         Exportă ca PDF
                     </button>

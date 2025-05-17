@@ -15,6 +15,8 @@ const Register = () => {
     });
 
     const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState("");  // Nou: Tipul mesajului ("success" sau "error")
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -27,16 +29,19 @@ const Register = () => {
 
         if (!userData.fullName || !userData.email || !userData.password || !userData.confirmPassword) {
             setMessage("Te rugăm să completezi toate câmpurile necesare.");
+            setMessageType("error");
             return;
         }
 
         if (userData.password !== userData.confirmPassword) {
             setMessage("Parolele nu se potrivesc.");
+            setMessageType("error");
             return;
         }
 
         if (userData.requestedRole === "DOCTOR" && !userData.accessCode) {
             setMessage("Te rugăm să introduci codul pentru rolul de doctor.");
+            setMessageType("error");
             return;
         }
 
@@ -44,6 +49,7 @@ const Register = () => {
             const { confirmPassword, ...dataToSend } = userData;
             await axios.post("http://localhost:8080/api/users/register", dataToSend);
             setMessage("Înregistrare reușită! Redirecționare...");
+            setMessageType("success");
             setTimeout(() => navigate("/login"), 2000);
         } catch (error) {
             console.error(error);
@@ -52,15 +58,23 @@ const Register = () => {
             } else {
                 setMessage("Înregistrarea a eșuat. Verifică datele introduse.");
             }
+            setMessageType("error");
         }
     };
 
     return (
         <div className="auth-container">
             <button className="back-button" onClick={() => navigate("/")}>← Înapoi</button>
+
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Înregistrare</h2>
-                {message && <p className="error-message">{message}</p>}
+
+                {/* Afișare Mesaj */}
+                {message && (
+                    <p className={messageType === "success" ? "success-message" : "error-message"}>
+                        {message}
+                    </p>
+                )}
 
                 <input
                     type="text"
@@ -130,7 +144,6 @@ const Register = () => {
                         onChange={handleChange}
                     />
                 )}
-
 
                 <button type="submit">Înregistrare</button>
                 <p>Ai deja un cont? <span className="link" onClick={() => navigate("/login")}>Autentificare</span></p>
