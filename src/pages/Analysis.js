@@ -80,11 +80,11 @@ const Analysis = () => {
         const selectedFile = e.target.files[0];
         if (!selectedFile) return;
 
-        const formData = new FormData();
-        formData.append("file", selectedFile);
+        const uploadData = new FormData();
+        uploadData.append("file", selectedFile);
 
         const token = localStorage.getItem("token");
-        axios.post("http://localhost:8080/api/analyses/upload-pdf", formData, {
+        axios.post("http://localhost:8080/api/analyses/upload-pdf", uploadData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data"
@@ -94,8 +94,13 @@ const Analysis = () => {
             .catch(() => setMessage("Eroare la procesarea fișierului."));
     };
 
+    const isFromList = predefinedTests.some(test => test.name === formData.testName);
+
     return (
         <div className="page-container">
+            <div className="overlay"></div> {}
+            <div className="background-blur" />
+
             <h1>Adaugă Analize</h1>
 
             <div className="method-switch">
@@ -111,46 +116,54 @@ const Analysis = () => {
 
             {selectedMethod === "manual" ? (
                 <form className="analysis-form styled-form" onSubmit={handleSubmit}>
-                    <div className="dual-input">
-                        <label>
-                            Analiză din listă:
-                            <input
-                                list="testNames"
-                                name="testName"
-                                className="input-dropdown"
-                                value={formData.testName}
-                                onChange={(e) => {
-                                    const selected = predefinedTests.find(t => t.name === e.target.value);
-                                    if (selected) {
-                                        setFormData((prev) => ({
-                                            ...prev,
-                                            testName: selected.name,
-                                            unit: selected.unit
-                                        }));
-                                    } else {
-                                        setFormData((prev) => ({ ...prev, testName: e.target.value }));
-                                    }
-                                }}
-                            />
-                            <datalist id="testNames">
-                                {predefinedTests.map((test, index) => (
-                                    <option key={index} value={test.name} />
-                                ))}
-                            </datalist>
-                        </label>
-
-                        <label>
-                            Adauga analiza manual:
-                            <input
-                                type="text"
-                                name="testName"
-                                className="input-text"
-                                onBlur={handleChange}
-                            />
-                        </label>
+                    <div className="form-group">
+                        <label htmlFor="testName">Analiză din listă:</label>
+                        <input
+                            list="testNames"
+                            name="testName"
+                            id="testName"
+                            value={formData.testName}
+                            onChange={(e) => {
+                                const selected = predefinedTests.find(t => t.name === e.target.value);
+                                if (selected) {
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        testName: selected.name,
+                                        unit: selected.unit
+                                    }));
+                                } else {
+                                    setFormData((prev) => ({ ...prev, testName: e.target.value }));
+                                }
+                            }}
+                        />
+                        <datalist id="testNames">
+                            {predefinedTests.map((test, index) => (
+                                <option key={index} value={test.name} />
+                            ))}
+                        </datalist>
                     </div>
 
-                    <input type="number" step="0.01" name="value" placeholder="Valoare" value={formData.value} onChange={handleChange} />
+                    {!isFromList && (
+                        <div className="form-group">
+                            <label htmlFor="testNameManual">Adaugă analiză manual:</label>
+                            <input
+                                type="text"
+                                id="testNameManual"
+                                name="testName"
+                                value={formData.testName}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    )}
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="value"
+                        placeholder="Valoare"
+                        value={formData.value}
+                        onChange={handleChange}
+                    />
 
                     <div className="dual-input">
                         <label>
@@ -169,20 +182,48 @@ const Analysis = () => {
                             </datalist>
                         </label>
 
-                        <label>
-                            Adauga unitatea manual:
-                            <input
-                                type="text"
-                                name="unit"
-                                className="input-text"
-                                onBlur={handleChange}
-                            />
-                        </label>
+                        {!isFromList && (
+                            <label>
+                                Adaugă unitate manual:
+                                <input
+                                    type="text"
+                                    name="unit"
+                                    className="input-text"
+                                    value={formData.unit}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                        )}
                     </div>
 
-                    <input type="number" step="0.01" name="normalMin" placeholder="Minim Normal" value={formData.normalMin} onChange={handleChange} />
-                    <input type="number" step="0.01" name="normalMax" placeholder="Maxim Normal" value={formData.normalMax} onChange={handleChange} />
-                    <input type="date" name="testDate" placeholder="Data Test" value={formData.testDate} onChange={handleChange} />
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="normalMin"
+                        placeholder="Minim Normal"
+                        value={formData.normalMin}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="normalMax"
+                        placeholder="Maxim Normal"
+                        value={formData.normalMax}
+                        onChange={handleChange}
+                    />
+
+                    <div className="form-group">
+                        <label htmlFor="testDate">Data efectuării analizei</label>
+                        <input
+                            type="date"
+                            id="testDate"
+                            name="testDate"
+                            value={formData.testDate}
+                            onChange={handleChange}
+                        />
+                    </div>
+
                     <button type="submit">Adaugă Analiza</button>
                 </form>
             ) : (
@@ -193,6 +234,7 @@ const Analysis = () => {
             )}
         </div>
     );
+
 };
 
 export default Analysis;

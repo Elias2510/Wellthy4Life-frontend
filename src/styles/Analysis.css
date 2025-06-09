@@ -1,118 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+
+/* Container general */
+
+/* Fundal blur + închis */
+.page-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('../styles/auth.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(30%) brightness(0.6);
+    opacity: 0.9;
+    z-index: 0;
+}
 .page-container {
-    min-height: 100vh;
-    padding-top: 80px;
+    position: relative;
+    height: 100vh;
+    height: auto;
+    background-image: url('../styles/auth.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #f4f6f8;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    justify-content: flex-start;
+    padding-top: 100px;
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+}
+/* Overlay de contrast */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
 }
 
-h1 {
-    font-size: 2.4rem;
-    margin-bottom: 20px;
-    color: #2f4f4f;
-}
-
-.method-switch {
+/* Cardul cu formular */
+.analysis-form {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    color: #f1f5f9;
+    border: 1px solid rgba(255,255,255,0.15);
     display: flex;
-    gap: 12px;
-    margin-bottom: 25px;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* Titlu */
+.page-container h1 {
+    position: relative;
+    z-index: 2;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #a5f3fc;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Mesaj de stare */
+.analysis-message {
+    position: relative;
+    z-index: 2;
+    font-size: 1rem;
+    color: #86efac;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Butoane de comutare */
+.method-switch {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    justify-content: center;
 }
 
 .method-switch button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #e0eafc;
-    color: #2f4f4f;
+    padding: 0.6rem 1.4rem;
+    font-size: 1rem;
     font-weight: 600;
+    border-radius: 9999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(6px);
 }
 
-.method-switch button.active {
-    background-color: #a7c7e7;
+.method-switch .active {
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
-.method-switch button:hover {
-    background-color: #c2dfff;
-}
-
-.analysis-form {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+/* Formulare */
+.analysis-form input,
+.analysis-form select,
+.analysis-form textarea {
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    outline: none;
     width: 100%;
-    max-width: 520px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.analysis-form input::placeholder {
+    color: #cbd5e1;
 }
 
+.analysis-form label {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+/* Grupuri de câmpuri */
+.form-group {
+    width: 100%;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.form-group input {
+    width: 100%;
+}
+
+/* Două coloane */
 .dual-input {
     display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.dual-input > label {
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-.dual-input label {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #3f3f3f;
-}
-
-.input-dropdown,
-.input-text,
-.analysis-form input[type="number"],
-.analysis-form input[type="date"],
-.analysis-form input[type="file"] {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    background: #fbfcfe;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-}
-
-.input-dropdown:focus,
-.input-text:focus,
-.analysis-form input:focus {
-    border-color: #90caf9;
-    box-shadow: 0 0 0 3px rgba(144, 202, 249, 0.3);
-    outline: none;
-}
-
+/* Buton Submit */
 .analysis-form button {
-    padding: 12px;
-    background: linear-gradient(to right, #a7c7e7, #c2e9f7);
-    color: #2f4f4f;
-    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.75rem;
     font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 9999px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .analysis-form button:hover {
-    background: linear-gradient(to right, #9bbfd9, #b5deec);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
 }
-
-.analysis-message {
-    background: #e7f2e7;
-    color: #2e7d32;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-size: 0.95rem;
-    text-align: center;
+.background-blur {
+    position: fixed;
+    inset: 0;
+    background-image: url('../styles/auth.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(30%) brightness(0.6) blur(8px);
+    z-index: 0;
 }

@@ -39,6 +39,8 @@ const Help = () => {
     return (
         <div className="page-container">
             <h1>Asistență Tehnică</h1>
+            <div className="overlay"></div> {}
+            <div className="background-blur" />
             <form className="help-form" onSubmit={handleSend}>
                 {message && <p className="form-message">{message}</p>}
                 <input

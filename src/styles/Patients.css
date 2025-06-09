@@ -1,69 +1,98 @@
-.pacienti-container {
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+
+.patients-container {
+    position: relative;
     min-height: 100vh;
-    padding-top: 80px;
-    padding-bottom: 40px;
-    background: #f4f6f8;
+    padding: 100px 20px 60px;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+/* Fundal + overlay */
+.patients-container::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('../styles/auth.jpg'); /* Imaginea trebuie să fie în public */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(30%) brightness(0.6);
+    opacity: 0.9;
+    z-index: 0;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+}
+
+/* Titlu */
+.patients-container h2 {
+    position: relative;
+    z-index: 2;
+    font-size: 2.4rem;
+    color: #a5f3fc;
+    margin-bottom: 2rem;
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.pacienti-container h1 {
-    font-size: 2.2rem;
-    color: #2f4f4f;
-    margin-bottom: 30px;
+/* Mesaj eroare */
+.error-message {
+    position: relative;
+    z-index: 2;
+    color: #f87171;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
 }
 
-.card-grid {
+/* Listă pacienți */
+.patients-list {
+    position: relative;
+    z-index: 2;
+    list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-    padding: 0 40px;
-    max-width: 1100px;
-    margin: 0 auto;
+    gap: 1.5rem;
+    padding: 0;
+    width: 100%;
+    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+/* Card pacient */
 .patient-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    padding: 25px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    color: #f1f5f9;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
 }
 
 .patient-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
 .patient-card h3 {
-    margin-bottom: 10px;
-    color: #2f4f4f;
-    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: #7dd3fc;
 }
 
 .patient-card p {
-    color: #666;
     font-size: 0.95rem;
-    margin-bottom: 10px;
-}
-
-.badge {
-    display: inline-block;
-    background: #a7c7e7;
-    color: #2f4f4f;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.error-message {
-    color: #b94a48;
-    background: #fbeaea;
-    padding: 10px 15px;
-    border-radius: 10px;
-    border: 1px solid #f5c6cb;
-    max-width: 400px;
-    margin: 0 auto 20px;
+    color: #e2e8f0;
 }

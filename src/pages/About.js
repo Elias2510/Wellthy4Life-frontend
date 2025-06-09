@@ -1,57 +1,51 @@
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/About.css";
 
 const aboutSections = [
     {
-        id: 1,
-        text: (
-            <>
-                <strong>Wellthy4Life</strong> este o aplicație web concepută pentru gestionarea și monitorizarea analizelor medicale.
-            </>
-        )
+        title: "Monitorizare completă",
+        description: "Wellthy4Life te ajută să îți adaugi și să gestionezi analizele medicale, cu verificare automată a valorilor și alerte."
     },
     {
-        id: 2,
-        text: (
-            <>
-                Aplicația oferă utilizatorilor posibilitatea de a adăuga și gestiona rezultatele analizelor medicale, verificând automat
-                dacă valorile sunt în parametrii normali și oferind recomandări pentru vizite medicale.
-            </>
-        )
+        title: "Grafic și istoric",
+        description: "Toate analizele sunt salvate într-un istoric și afișate în grafice intuitive pentru urmărirea sănătății tale în timp."
     },
     {
-        id: 3,
-        text: (
-            <>
-                Wellthy4Life înregistrează istoricul analizelor într-o bază de date, prezentându-le sub formă de grafice și statistici
-                intuitive, facilitând urmărirea evoluției stării de sănătate în timp.
-            </>
-        )
-    },
-    {
-        id: 4,
-        text: (
-            <>
-                Cu ajutorul memento-urilor personalizate, aplicația trimite notificări pentru reînnoirea analizelor, contribuind la
-                prevenirea problemelor de sănătate prin monitorizare regulată și recomandări bazate pe valorile individuale.
-            </>
-        )
+        title: "Recomandări avizate",
+        description: "Sistemul oferă, prin cadrele medicale conectate, sugestii utile în funcție de rezultatele tale, cu focus pe prevenție și stil de viață sănătos."
     }
 ];
 
 const About = () => {
+    const [expandedIndexes, setExpandedIndexes] = useState([]);
+
+    const toggleCard = (index) => {
+        setExpandedIndexes((prev) =>
+            prev.includes(index)
+                ? prev.filter((i) => i !== index)
+                : [...prev, index]
+        );
+    };
+
     return (
-        <div className="page-container">
+        <div className="about-container">
             <Navbar />
-            <div className="page-content">
-                <h2>Despre Wellthy4Life</h2>
-                <div className="bubble-wrapper">
-                    {aboutSections.map((section) => (
-                        <div key={section.id} className="info-bubble">
-                            {section.text}
+            <div className="about-overlay" />
+            <h2 className="about-title">Despre Wellthy4Life</h2>
+            <div className="about-grid">
+                {aboutSections.map((section, index) => (
+                    <div
+                        key={index}
+                        className={`about-card ${expandedIndexes.includes(index) ? "expanded" : ""}`}
+                        onClick={() => toggleCard(index)}
+                    >
+                        <h3>{section.title}</h3>
+                        <div className="about-description">
+                            {expandedIndexes.includes(index) && <p>{section.description}</p>}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

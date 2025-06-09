@@ -7,8 +7,6 @@ const AdminPanel = () => {
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [analyses, setAnalyses] = useState([]);
     const [messages, setMessages] = useState([]);
-    const [message, setMessage] = useState("");
-
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -26,8 +24,6 @@ const AdminPanel = () => {
             console.error("Eroare la preluarea utilizatorilor:", err);
         }
     };
-    const unreadCount = messages.filter(m => !m.read).length;
-
 
     const fetchMessages = async () => {
         try {
@@ -79,9 +75,9 @@ const AdminPanel = () => {
 
     return (
         <div className="page-container">
+            <div className="background-blur" />
+            <div className="overlay" />
             <h1>Panou Administrator</h1>
-
-
 
             <table className="admin-table">
                 <thead>
@@ -94,15 +90,27 @@ const AdminPanel = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map((user, idx) => (
+                {users.filter(user => user.requestedRole !== "ADMIN").map((user, idx) => (
                     <tr key={idx}>
                         <td>{user.fullName}</td>
                         <td>{user.email}</td>
                         <td>{user.birthDate}</td>
                         <td>{user.requestedRole}</td>
                         <td>
-                            <button className="action-button delete" onClick={() => handleDeleteUser(user.email)}>Șterge utilizator</button>
-                            <button className="action-button view" onClick={() => fetchAnalyses(user.id)}>Vezi analize</button>
+                            <button
+                                className="action-button delete"
+                                onClick={() => handleDeleteUser(user.email)}
+                            >
+                                Șterge utilizator
+                            </button>
+                            {user.requestedRole !== "DOCTOR" && (
+                                <button
+                                    className="action-button view"
+                                    onClick={() => fetchAnalyses(user.id)}
+                                >
+                                    Vezi analize
+                                </button>
+                            )}
                         </td>
                     </tr>
                 ))}
@@ -116,11 +124,15 @@ const AdminPanel = () => {
                         {analyses.map((analysis, idx) => (
                             <li key={idx}>
                                 {analysis.testName} - {analysis.testDate} - {analysis.value}{analysis.unit}
-                                <button className="action-button delete" onClick={() => handleDeleteAnalysis(analysis.id)}>Șterge analiza</button>
+                                <button
+                                    className="action-button delete"
+                                    onClick={() => handleDeleteAnalysis(analysis.id)}
+                                >
+                                    Șterge analiza
+                                </button>
                             </li>
                         ))}
                     </ul>
-
 
                     <ul className="user-messages">
                         {messages.map((msg, idx) => (
@@ -131,7 +143,6 @@ const AdminPanel = () => {
                             </li>
                         ))}
                     </ul>
-
                 </div>
             )}
         </div>

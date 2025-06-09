@@ -13,6 +13,8 @@ import {
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useNavigate } from "react-router-dom";
+import '../styles/AnalysisCharts.css';
+import backgroundImage from '../styles/auth.jpg'; // imagine din src/styles
 
 const AnalysisCharts = () => {
     const [analyses, setAnalyses] = useState([]);
@@ -69,7 +71,7 @@ const AnalysisCharts = () => {
 
     return (
         <div className="chart-section">
-            <h2 style={{ fontSize: "1.5rem", color: "#2f4f4f", marginBottom: "1rem" }}>Vizualizare Analize</h2>
+            <h2>Vizualizare Analize</h2>
 
             <div style={{ display: "flex", gap: "20px", marginBottom: "2rem" }}>
                 <button
@@ -80,7 +82,8 @@ const AnalysisCharts = () => {
                 </button>
 
             </div>
-
+            <div className="background-blur" />
+            <div className="overlay" />
             <select
                 value={selectedTest}
                 onChange={(e) => setSelectedTest(e.target.value)}
@@ -96,11 +99,9 @@ const AnalysisCharts = () => {
 
             {chartData.length > 0 && (
                 <>
-                    <div
-                        ref={chartRef}
-                        style={{ width: "100%", height: 300, maxWidth: "900px", margin: "0 auto" }}
-                    >
-                        <ResponsiveContainer width="100%" height="100%">
+                    <div ref={chartRef} className="chart-container">
+
+                    <ResponsiveContainer width="100%" height="100%">
                             <LineChart
                                 data={chartData}
                                 margin={{ top: 10, right: 40, bottom: 30, left: 10 }}

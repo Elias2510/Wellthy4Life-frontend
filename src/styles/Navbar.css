@@ -1,70 +1,72 @@
-.navbar {
-    width: 98%;
-    background: linear-gradient(to right, #a7c7e7, #c2e9f7);
+.menu-toggle {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: none;
+    border: none;
+    color: dimgrey;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.menu-toggle:hover {
+    transform: scale(1.1);
+}
+
+.nav-menu {
+    position: fixed;
+    top: -10vh;
+    bottom: 10vh;
+    right: -100%;
+    height: 110%;
+    width: 220px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 2rem;
+    gap: 1.5rem;
+    transition: right 0.3s ease-in-out;
     z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    height: 60px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-    color: #2f4f4f;
-    font-size: 1.8rem;
-    font-weight: bold;
+.nav-menu.active {
+    right: 0;
+}
+
+.nav-menu li {
+    color: #f1f5f9;
+    font-size: 1.1rem;
+    font-weight: 500;
     cursor: pointer;
-    text-decoration: none;
-}
-
-.logo:hover {
-    opacity: 0.8;
-}
-
-.navbar ul {
     list-style: none;
-    display: flex;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
-    align-items: center;
 }
 
-.navbar li {
-    cursor: pointer;
-    color: #2f4f4f;
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 8px 12px;
-    transition: background 0.3s, border-radius 0.3s;
-}
-
-.navbar li:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+.nav-menu li:hover {
+    color: #38bdf8;
 }
 
 .logout-button {
-    background: #f08080;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
+
+    padding: 0.75rem 2rem;
     font-size: 1rem;
-    transition: background 0.3s ease;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(90deg, #ef4444, #f87171);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 11px rgba(239, 68, 68, 0.4);
+    width: 100%;
+    max-width: 120px;
+    align-self: center;
 }
 
 .logout-button:hover {
-    background: #cd5c5c;
-}
-
-.nav-links.centered {
-    justify-content: center;
-    width: 100%;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.6);
 }

@@ -25,8 +25,11 @@ const Patients = () => {
     }, []);
 
     return (
+
         <div className="patients-container">
             <h2>Lista Pacienților</h2>
+            <div className="background-blur" />
+            <div className="overlay" />
             {error && <p className="error-message">{error}</p>}
             <ul className="patients-list">
                 {patients.map((patient) => (

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import "../styles/Auth.css";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -17,19 +18,11 @@ const Login = () => {
         try {
             const response = await axios.post("http://localhost:8080/auth/login", { email, password });
             const token = response.data.token;
-
             const payload = JSON.parse(atob(token.split('.')[1]));
             const userRole = payload.role || payload.roles?.[0] || "USER";
 
             login(token, userRole);
-
-            if (userRole === "DOCTOR") {
-                navigate("/pacienti");
-            } else if (userRole === "ADMIN") {
-                navigate("/admin-panel"); // presupunem că aceasta e pagina dedicată adminului
-            } else {
-                navigate("/dashboard");
-            }
+            navigate("/"); // Redirecționare către pagina Acasă
         } catch (err) {
             console.error("Login error:", err);
             setError("Email sau parolă incorecte");
@@ -37,27 +30,33 @@ const Login = () => {
     };
 
     return (
-        <div className="auth-container">
-            <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Login</h2>
+        <div className="auth-page">
+            <Navbar />
+            <div className="overlay" />
+            <div className="glass-card auth-card">
+                <h2 className="title">Autentificare</h2>
                 {error && <p className="error-message">{error}</p>}
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Parolă"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Autentificare</button>
+
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Parolă"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button type="submit" className="cta-button">Login</button>
+                </form>
+
                 <p className="link" onClick={() => navigate("/register")}>
-                    Nu ai cont? Înregistrează-te!
+                    Nu ai cont? Înregistrează-te
                 </p>
-            </form>
+            </div>
         </div>
     );
 };

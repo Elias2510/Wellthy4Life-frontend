@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Dashboard.css';
+import backgroundImage from '../styles/auth.jpg'; // imagine din src/styles
 
 const Dashboard = () => {
     const [analyses, setAnalyses] = useState([]);
@@ -95,26 +96,27 @@ const Dashboard = () => {
     const uniqueDates = [...new Set(analyses.map(a => a.testDate))];
 
     return (
-        <div className="page-container">
+        <div
+            className="page-container"
+            style={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+            }}
+        >
+            <div className="background-blur" />
+            <div className="overlay" />
+
+
             <h1>Analizele Tale Medicale</h1>
 
-            <button
-                style={{
-                    marginBottom: "20px",
-                    padding: "10px 20px",
-                    borderRadius: "8px",
-                    background: "#a7c7e7",
-                    color: "#2f4f4f",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    border: "none"
-                }}
-                onClick={() => navigate("/charts")}
-            >
+            <button onClick={() => navigate("/charts")}>
                 Vezi graficele tale
             </button>
 
-            <div className="filters">
+            <div className="analysis-filters">
                 <input
                     type="text"
                     placeholder="Filtru după nume analiză"
@@ -137,41 +139,43 @@ const Dashboard = () => {
 
             {error && <p className="error-message">{error}</p>}
             {filteredAnalyses.length > 0 ? (
-                <table className="analysis-table">
-                    <thead>
-                    <tr>
-                        <th>Nume Test</th>
-                        <th>Valoare</th>
-                        <th>Unitate</th>
-                        <th>Minim Normal</th>
-                        <th>Maxim Normal</th>
-                        <th>Data Test</th>
-                        <th>Recomandare</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {filteredAnalyses.map((analysis) => {
-                        const severity = getSeverity(analysis.value, analysis.normalMin, analysis.normalMax);
-                        return (
-                            <tr key={analysis.id}>
-                                <td>{analysis.testName}</td>
-                                <td style={{
-                                    backgroundColor: getValueColor(severity),
-                                    fontWeight: 'bold',
-                                    color: '#222'
-                                }}>
-                                    {analysis.value}
-                                </td>
-                                <td>{analysis.unit}</td>
-                                <td>{analysis.normalMin}</td>
-                                <td>{analysis.normalMax}</td>
-                                <td>{analysis.testDate}</td>
-                                <td>{getRecommendationText(analysis.id)}</td>
-                            </tr>
-                        );
-                    })}
-                    </tbody>
-                </table>
+                <div className="analysis-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Nume Test</th>
+                            <th>Valoare</th>
+                            <th>Unitate</th>
+                            <th>Minim Normal</th>
+                            <th>Maxim Normal</th>
+                            <th>Data Test</th>
+                            <th>Recomandare</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {filteredAnalyses.map((analysis) => {
+                            const severity = getSeverity(analysis.value, analysis.normalMin, analysis.normalMax);
+                            return (
+                                <tr key={analysis.id}>
+                                    <td>{analysis.testName}</td>
+                                    <td style={{
+                                        backgroundColor: getValueColor(severity),
+                                        fontWeight: 'bold',
+                                        color: '#222'
+                                    }}>
+                                        {analysis.value}
+                                    </td>
+                                    <td>{analysis.unit}</td>
+                                    <td>{analysis.normalMin}</td>
+                                    <td>{analysis.normalMax}</td>
+                                    <td>{analysis.testDate}</td>
+                                    <td>{getRecommendationText(analysis.id)}</td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <p>Nu au fost găsite analize.</p>
             )}

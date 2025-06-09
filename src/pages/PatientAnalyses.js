@@ -98,6 +98,8 @@ const PatientAnalyses = () => {
 
     return (
         <div className="patient-analyses-container">
+            <div className="background-blur" />
+            <div className="overlay" />
             <h2>Analize pacient</h2>
             {error && <p className="error-message">{error}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
@@ -143,11 +145,22 @@ const PatientAnalyses = () => {
                 {filteredAnalyses.map((a, idx) => (
                     <tr key={idx}>
                         <td>{a.testName}</td>
-                        <td style={{ backgroundColor: getColor(a.value, a.normalMin, a.normalMax), fontWeight: 'bold' }}>{a.value}</td>
+                        <td
+                            className="colored-cell"
+                            style={{
+                                backgroundColor: getColor(a.value, a.normalMin, a.normalMax)
+                            }}
+                        >
+                            {a.value}
+                        </td>
+
                         <td>{a.unit}</td>
                         <td>{a.normalMin}</td>
                         <td>{a.normalMax}</td>
                         <td>{a.testDate}</td>
+
+
+
                         <td>
                             {selectedAnalysisId === idx ? (
                                 <div>

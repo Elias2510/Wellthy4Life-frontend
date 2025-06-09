@@ -1,117 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+
+.page-container::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('../styles/auth.jpg'); /* trebuie să fie în src/styles */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(40%) brightness(0.4);
+    opacity: 0.35;
+    z-index: 0;
+}
 .page-container {
+    position: relative;
     min-height: 100vh;
-    padding-top: 80px;
-    padding-bottom: 40px;
-    background: #f4f6f8;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 100px 20px 60px;
+    font-family: 'Quicksand', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    color: #f1f5f9;
 }
 
-h1 {
-    font-size: 2.4rem;
-    margin-bottom: 20px;
-    color: #2f4f4f;
+
+
+
+
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1;
 }
+
+.page-container h1 {
+    position: relative;
+    z-index: 2;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #a5f3fc;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
 
 .admin-table {
-    width: 95%;
-    max-width: 1000px;
+    position: relative;
+    z-index: 2;
+    width: 99%;
+    max-width: 1100px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    border-radius: 2px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    overflow-x: auto;
+    padding: 1rem;
+    margin-bottom: 1rem;
     border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .admin-table th,
 .admin-table td {
-    padding: 14px 18px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .admin-table th {
-    background-color: #e6f0f7;
-    color: #2f4f4f;
-    font-weight: bold;
+    background: rgba(0, 0, 0, 0.25);
+    color: #7dd3fc;
+    font-weight: 700;
+    font-size: 0.95rem;
 }
 
-.admin-table tbody tr:hover {
-    background-color: #f5faff;
+.admin-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* Butoane acțiune */
 .action-button {
-    padding: 6px 12px;
+    padding: 0.5rem 1.2rem;
+    margin: 0.3rem;
     font-size: 0.9rem;
-    font-weight: bold;
+    font-weight: 600;
+    border-radius: 999px;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    margin-right: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.action-button.delete {
-    background-color: #f08080;
+    transition: all 0.3s ease;
     color: white;
 }
 
-.action-button.delete:hover {
-    background-color: #cd5c5c;
+.action-button.view {
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
 }
 
-.action-button.add {
-    background-color: #a7c7e7;
-    color: #2f4f4f;
+.action-button.delete {
+    background: #ef4444;
 }
 
-.action-button.add:hover {
-    background-color: #90b4d6;
+.action-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-.add-user-form {
-    margin-top: 30px;
-    width: 100%;
-    max-width: 500px;
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+/* Secțiune analize */
+.analyses-section {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.analyses-section h3 {
+    color: #7dd3fc;
+    margin-bottom: 1rem;
+}
+
+.analyses-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.analyses-section li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    color: #f1f5f9;
 }
 
-.add-user-form input,
-.add-user-form select {
-    padding: 10px;
-    font-size: 1rem;
+/* Mesaje utilizatori */
+.user-messages {
+    margin-top: 2rem;
+}
+
+.user-messages li {
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 10px;
-    border: 1px solid #ccc;
-    background-color: #f9f9fb;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: #e2e8f0;
 }
 
-.add-user-form input:focus,
-.add-user-form select:focus {
-    border-color: #90caf9;
-    box-shadow: 0 0 0 3px rgba(144, 202, 249, 0.3);
-    outline: none;
+.user-messages li.read {
+    opacity: 0.6;
 }
 
-.add-user-form button {
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(to right, #a7c7e7, #c2e9f7);
-    color: #2f4f4f;
-    font-weight: bold;
-    cursor: pointer;
+.user-messages li.unread {
+    border-left: 4px solid #3b82f6;
 }
 
-.add-user-form button:hover {
-    background: linear-gradient(to right, #9bbfd9, #b5deec);
+.user-messages strong {
+    color: #7dd3fc;
+}
+
+.user-messages p {
+    margin: 0.5rem 0;
+}
+
+.user-messages em {
+    font-size: 0.85rem;
+    color: #94a3b8;
 }

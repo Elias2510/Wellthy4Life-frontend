@@ -46,6 +46,10 @@ const AdminSupportMessages = () => {
 
     return (
         <div className="admin-support-container">
+            <div className="background-blur" />
+            <div className="overlay" />
+
+
             <h1>Support Messages</h1>
             <div className="message-list">
                 {messages.map(msg => (

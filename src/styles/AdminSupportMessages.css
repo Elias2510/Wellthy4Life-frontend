@@ -1,86 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+.admin-support-container::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('../styles/auth.jpg'); /* trebuie să fie în src/styles */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(40%) brightness(0.6);
+    opacity: 0.35;
+    z-index: 0;
+}
 .admin-support-container {
-    padding: 80px 20px 20px;
-    background: #f8f9fa;
-    font-family: "Segoe UI", sans-serif;
+    position: relative;
     min-height: 100vh;
-}
-
-h1 {
-    color: #2f4f4f;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.message-list {
+    padding: 100px 20px 60px;
+    font-family: 'Quicksand', sans-serif;
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    color: #f1f5f9;
 }
 
+
+
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+}
+
+.admin-support-container h1 {
+    position: relative;
+    z-index: 2;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #7dd3fc;
+    margin-bottom: 2rem;
+}
+
+/* Lista mesaje */
+.message-list {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Card mesaj */
 .message-card {
-    background: white;
-    border: 1px solid #ddd;
-    border-left: 5px solid #a7c7e7;
-    padding: 15px;
-    border-radius: 12px;
-    width: 300px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 1.2rem;
+    padding: 1.2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
     cursor: pointer;
-    transition: box-shadow 0.3s;
-}
-
-.message-card.unread {
-    border-left: 5px solid #ff6b6b;
-    font-weight: bold;
+    transition: transform 0.2s ease;
 }
 
 .message-card:hover {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transform: scale(1.02);
+}
+
+.message-card.read {
+    opacity: 0.6;
 }
 
 .message-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 .message-subject {
     font-size: 1rem;
-    margin: 10px 0;
-    color: #444;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
 }
 
 .message-date {
     font-size: 0.85rem;
-    color: #888;
+    color: #94a3b8;
 }
 
+/* Badge */
 .badge {
-    background: #ff6b6b;
+    background-color: #38bdf8;
     color: white;
-    padding: 3px 7px;
-    border-radius: 8px;
     font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
 }
 
+/* Detalii mesaj */
 .message-details {
-    margin-top: 40px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 25px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    border-radius: 1.25rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+.message-details h2 {
+    font-size: 1.5rem;
+    color: #a5f3fc;
+    margin-bottom: 1rem;
+}
+
+.message-details p {
+    margin: 0.5rem 0;
+}
+
+/* Butoane */
 .message-details button {
-    margin-top: 15px;
-    padding: 10px 18px;
-    background: #a7c7e7;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
     border: none;
-    border-radius: 8px;
-    color: #2f4f4f;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.message-details button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
 }

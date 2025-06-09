@@ -1,45 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body, html, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+}
+.home-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('./auth.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(30%) brightness(0.6);
+    opacity: 0.9;
+    z-index: 0;
+}
+
 .home-container {
-    background: linear-gradient(to right, #d8eefe, #e9faff);
+    position: relative;
+    background-image: url('./auth.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.glass-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     text-align: center;
-    color: #2f4f4f;
+    color: #f1f5f9;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.title {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #a5f3fc;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    margin-bottom: 2rem;
 }
 
 .welcome-message {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.home-content {
-    margin-top: 100px;
-}
-
-.home-content h1 {
-    font-size: 2.5rem;
-}
-
-.home-content p {
-    font-size: 1.2rem;
-    margin-top: 10px;
+    font-size: 1.4rem;
+    color: #86efac;
+    font-weight: 600;
 }
 
 .cta-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background: white;
-    color: #3b8edc;
-    border: 1px solid #a7c7e7;
-    border-radius: 5px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 9999px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .cta-button:hover {
-    background: #f1f7fb;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
 }
