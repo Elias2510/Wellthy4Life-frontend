@@ -14,7 +14,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useNavigate } from "react-router-dom";
 import '../styles/AnalysisCharts.css';
-import backgroundImage from '../styles/auth.jpg'; // imagine din src/styles
+import backgroundImage from '../styles/auth.jpg';
 
 const AnalysisCharts = () => {
     const [analyses, setAnalyses] = useState([]);
@@ -29,7 +29,7 @@ const AnalysisCharts = () => {
             try {
                 const token = localStorage.getItem("token");
                 const response = await axios.get("http://localhost:8080/api/analyses/user", {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { Authorization: `Bearer ${token}` }
                 });
                 setAnalyses(response.data);
 
@@ -71,42 +71,34 @@ const AnalysisCharts = () => {
 
     return (
         <div className="chart-section">
-            <h2>Vizualizare Analize</h2>
-
-            <div style={{ display: "flex", gap: "20px", marginBottom: "2rem" }}>
-                <button
-                    style={{ padding: "10px 20px", borderRadius: "8px", background: "#a7c7e7", border: "none", cursor: "pointer", fontWeight: "bold" }}
-                    onClick={() => navigate("/dashboard")}
-                >
-                    Vezi lista de analize
-                </button>
-
-            </div>
-            <div className="background-blur" />
             <div className="overlay" />
+            <h2>Vizualizare Analize</h2>
+            <div className="overlay"></div> {}
+            <div className="background-blur" />
+            <div style={{ display: "flex", gap: "20px", marginBottom: "2rem", zIndex: 2 }}>
+                <button onClick={() => navigate("/dashboard")}>Vezi lista de analize</button>
+            </div>
+
             <select
                 value={selectedTest}
                 onChange={(e) => setSelectedTest(e.target.value)}
-                style={{ padding: "10px", borderRadius: "8px", border: "1px solid #ccc", marginBottom: "20px" }}
             >
                 <option value="">Selectează o analiză</option>
                 {uniqueTests.map((test, index) => (
-                    <option key={index} value={test}>
-                        {test}
-                    </option>
+                    <option key={index} value={test}>{test}</option>
                 ))}
             </select>
 
             {chartData.length > 0 && (
                 <>
-                    <div ref={chartRef} className="chart-container">
+                    <div className="chart-container" ref={chartRef}>
 
-                    <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%">
                             <LineChart
                                 data={chartData}
                                 margin={{ top: 10, right: 40, bottom: 30, left: 10 }}
                             >
-                                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                                <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
                                 <XAxis dataKey="date" tick={{ fontSize: 12 }} angle={-35} textAnchor="end" height={60} />
                                 <YAxis tick={{ fontSize: 12 }} />
                                 <Tooltip />
@@ -115,7 +107,7 @@ const AnalysisCharts = () => {
                                     type="monotone"
                                     dataKey="value"
                                     name="Valoare"
-                                    stroke="#007bff"
+                                    stroke="#60a5fa"
                                     strokeWidth={2}
                                     dot={{ r: 4 }}
                                     activeDot={{ r: 6 }}
@@ -124,23 +116,21 @@ const AnalysisCharts = () => {
                                     type="monotone"
                                     dataKey="normalMin"
                                     name="Minim normal"
-                                    stroke="#82ca9d"
+                                    stroke="#34d399"
                                     strokeDasharray="5 5"
                                 />
                                 <Line
                                     type="monotone"
                                     dataKey="normalMax"
                                     name="Maxim normal"
-                                    stroke="#ff7f7f"
+                                    stroke="#f87171"
                                     strokeDasharray="5 5"
                                 />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
-                    <button
-                        onClick={handleExportPDF}
-                        style={{ marginTop:40,  padding: "16px 16px", borderRadius: "8px", background: "#a7c7e7", border: "none", cursor: "pointer", fontWeight: "bold",display: "flex" }}
-                    >
+
+                    <button onClick={handleExportPDF}>
                         Exportă ca PDF
                     </button>
                 </>
